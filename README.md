@@ -18,6 +18,9 @@ Alternatively you can use the **Spring Boot Maven plugin** like so:
 .\mvnw spring-boot:run
 ```
 
+* API-key needs to be used with header **X-API-KEY** as a token for authentication\
+  Key can be found in [application.properties](src/main/resources/application.properties) under property `abn.api.key.value` and changed if needed.
+
 ## Reading the API end-points documentation
 API endpoints and response schema can be seen and tested via [Open-API Swagger UI](http://localhost:8080/swagger-ui/index.html).\
 Swagger Json schema can be accessed via [JSON](http://localhost:8080/v3/api-docs/) & [YAML](http://localhost:8080/v3/api-docs.yaml) format.
