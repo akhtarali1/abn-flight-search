@@ -1,4 +1,4 @@
-package com.abn.flight.search.configuration;
+package com.abn.flight.search.security;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 

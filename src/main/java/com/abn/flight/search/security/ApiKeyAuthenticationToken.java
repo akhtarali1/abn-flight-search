@@ -1,4 +1,4 @@
-package com.abn.flight.search.configuration;
+package com.abn.flight.search.security;
 
 import java.util.Collection;
 
