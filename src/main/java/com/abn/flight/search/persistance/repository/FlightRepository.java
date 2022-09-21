@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +26,9 @@ public interface FlightRepository extends PagingAndSortingRepository<FlightEntit
      * @param sortOrder sort order
      * @return available flights matching origin & destination combination
      */
+    @Query("SELECT flight FROM FlightEntity flight " +
+        "where  flight.origin = (select airport from AirportEntity airport where airport.airportCode = :origin)" +
+        "AND flight.destination = (select airport from AirportEntity airport where airport.airportCode = :destination)")
     List<FlightEntity> findAllByOriginAndDestination(String origin, String destination, Sort sortOrder);
 
     /**

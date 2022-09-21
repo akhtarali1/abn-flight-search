@@ -1,5 +1,8 @@
 package com.abn.flight.search.mapper;
 
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.apache.commons.lang3.StringUtils.SPACE;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -14,24 +17,12 @@ import org.springframework.stereotype.Component;
 import com.abn.flight.search.model.Flight;
 import com.abn.flight.search.persistance.entity.AirportEntity;
 import com.abn.flight.search.persistance.entity.FlightEntity;
-import com.abn.flight.search.persistance.repository.AirportRepository;
 
 /**
  * Flight model Mapper
  */
 @Component
 public class FlightMapper {
-
-    private final AirportRepository airportRepository;
-
-    /**
-     * Flight Mapper constructor
-     *
-     * @param airportRepository {@link AirportRepository}
-     */
-    public FlightMapper(AirportRepository airportRepository) {
-        this.airportRepository = airportRepository;
-    }
 
     /**
      * Map flight model from entity
@@ -44,20 +35,17 @@ public class FlightMapper {
         AtomicBoolean isNextDayArrival = new AtomicBoolean(false);
         String duration = getFlightDuration(flightEntity, isNextDayArrival);
 
-        // Setting default date to now() + 10 if not provided
-        departureDate = Optional.ofNullable(departureDate).orElse(LocalDate.now().plusDays(10));
-
-        Optional<AirportEntity> origin = airportRepository.findByAirportCode(flightEntity.getOrigin());
-        Optional<AirportEntity> destination = airportRepository.findByAirportCode(flightEntity.getDestination());
+        Optional<AirportEntity> origin = Optional.ofNullable(flightEntity.getOrigin());
+        Optional<AirportEntity> destination = Optional.ofNullable(flightEntity.getDestination());
 
         return Flight.builder()
             .flightNumber(flightEntity.getFlightNumber())
-            .origin(getAirportName(origin, flightEntity.getOrigin()))
-            .destination(getAirportName(destination, flightEntity.getDestination()))
+            .origin(getAirportName(origin))
+            .destination(getAirportName(destination))
             .departureDate(departureDate.toString())
             .departureTime(getAirportLocalTime(flightEntity.getDepartureTime(), departureDate, origin, false))
             .arrivalTime(getAirportLocalTime(flightEntity.getArrivalTime(), departureDate, destination, isNextDayArrival.get()))
-            .price(flightEntity.getPrice())
+            .price(flightEntity.getPrice().toString() + SPACE + flightEntity.getCurrency())
             .duration(duration)
             .build();
     }
@@ -88,10 +76,10 @@ public class FlightMapper {
         return localTime;
     }
 
-    private String getAirportName(Optional<AirportEntity> origin, String airportCode) {
+    private String getAirportName(Optional<AirportEntity> origin) {
         return origin
-            .map(o -> String.format("%s, %s (%s)", o.getAirportName(), o.getCity(), airportCode))
-            .orElse(airportCode);
+            .map(o -> String.format("%s, %s (%s)", o.getAirportName(), o.getCity(), o.getAirportCode()))
+            .orElse(EMPTY);
     }
 
 }

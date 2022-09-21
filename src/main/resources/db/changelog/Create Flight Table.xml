@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="Create Flight search table" author="Akhtar">
+        <createSequence cycle="true" incrementBy="1"
+                        sequenceName="FLIGHT_ID_SEQ" startValue="1"/>
+        <createTable tableName="FLIGHT">
+            <column name="ID" type="NUMBER(19)" defaultValueSequenceNext="FLIGHT_ID_SEQ">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FLIGHT_NUMBER" type="VARCHAR2(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORIGIN" type="NUMBER(19)">
+                <constraints nullable="false" foreignKeyName="FK_ORIGIN_AIRPORT"
+                             referencedColumnNames="ID" referencedTableName="AIRPORT"/>
+            </column>
+            <column name="DESTINATION" type="NUMBER(19)">
+                <constraints nullable="false" foreignKeyName="FK_DESTINATION_AIRPORT"
+                             referencedColumnNames="ID" referencedTableName="AIRPORT"/>
+            </column>
+            <column name="DEPARTURE_TIME" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ARRIVAL_TIME" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE" type="NUMBER(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENCY" type="VARCHAR2(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create index for origin and destination search" author="Akhtar">
+        <createIndex indexName="ORIGIN_DESTINATION_INDEX" tableName="FLIGHT">
+            <column name="ORIGIN"/>
+            <column name="DESTINATION" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="Load Flight plan data" author="Akhtar">
+        <loadData tableName="FLIGHT" file="static/csv/flight_plan.csv" encoding="UTF-8">
+            <column name="FLIGHT_NUMBER" header="FLIGHT_NUMBER" />
+            <column name="ORIGIN" header="ORIGIN" />
+            <column name="DESTINATION" header="DESTINATION" />
+            <column name="DEPARTURE_TIME" header="DEPARTURE_TIME" type="TIME 'HH:MI'" />
+            <column name="ARRIVAL_TIME" header="ARRIVAL_TIME" type="TIME 'HH:MI'" />
+            <column name="PRICE" header="PRICE" />
+            <column name="CURRENCY" header="CURRENCY" />
+        </loadData>
+    </changeSet>
+
+
+</databaseChangeLog>

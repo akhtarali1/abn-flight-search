@@ -1,7 +1,7 @@
 package com.abn.flight.search.service;
 
-import static com.abn.flight.search.domain.SortFields.departureTime;
-import static com.abn.flight.search.domain.SortFields.duration;
+import static com.abn.flight.search.model.SortFields.departureTime;
+import static com.abn.flight.search.model.SortFields.duration;
 import static java.util.stream.Collectors.toList;
 
 import java.time.LocalDate;
@@ -10,8 +10,8 @@ import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.abn.flight.search.domain.FlightNotFoundException;
-import com.abn.flight.search.domain.SortFields;
+import com.abn.flight.search.exception.FlightNotFoundException;
+import com.abn.flight.search.model.SortFields;
 import com.abn.flight.search.mapper.FlightMapper;
 import com.abn.flight.search.model.Flight;
 import com.abn.flight.search.model.SearchContext;

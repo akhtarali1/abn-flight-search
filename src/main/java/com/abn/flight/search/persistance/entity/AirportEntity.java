@@ -16,7 +16,7 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "AIRPORTS")
+@Table(name = "AIRPORT")
 public class AirportEntity {
 
     @Id

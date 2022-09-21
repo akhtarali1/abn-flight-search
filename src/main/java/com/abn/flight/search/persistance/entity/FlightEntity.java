@@ -4,6 +4,8 @@ import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -16,22 +18,31 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "FLIGHTS")
+@Table(name = "FLIGHT")
 public class FlightEntity {
 
     @Id
     private Long id;
     @NotNull
     private String flightNumber;
+
     @NotNull
-    private String origin;
+    @JoinColumn(name = "ORIGIN", nullable = false)
+    @ManyToOne
+    private AirportEntity origin;
+
     @NotNull
-    private String destination;
+    @JoinColumn(name = "DESTINATION", nullable = false)
+    @ManyToOne
+    private AirportEntity destination;
+
     @NotNull
     private LocalTime departureTime;
     @NotNull
     private LocalTime arrivalTime;
     @NotNull
-    private String price;
+    private Double price;
+    @NotNull
+    private String currency;
 
 }

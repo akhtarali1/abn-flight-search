@@ -23,7 +23,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.abn.flight.search.domain.FlightNotFoundException;
+import com.abn.flight.search.exception.FlightNotFoundException;
 import com.abn.flight.search.model.Error;
 
 import lombok.NonNull;

@@ -1,4 +1,4 @@
-package com.abn.flight.search.domain;
+package com.abn.flight.search.model;
 
 public enum SortFields {
 

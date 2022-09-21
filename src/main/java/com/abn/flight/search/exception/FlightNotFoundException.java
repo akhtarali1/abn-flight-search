@@ -1,4 +1,4 @@
-package com.abn.flight.search.domain;
+package com.abn.flight.search.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

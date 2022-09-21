@@ -16,7 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.abn.flight.search.domain.FlightNotFoundException;
+import com.abn.flight.search.exception.FlightNotFoundException;
 import com.abn.flight.search.model.Flight;
 import com.abn.flight.search.service.FlightSearchServiceImpl;
 

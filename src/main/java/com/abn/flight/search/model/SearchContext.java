@@ -10,8 +10,6 @@ import javax.validation.constraints.Size;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.abn.flight.search.domain.SortFields;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,16 +37,37 @@ public class SearchContext {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate departureDate;
 
+    @Schema(description = "Optional Sort by fields. Default price sorting is considered")
     private SortFields sortBy;
+    @Schema(description = "Optional sorting order Ascending or Descending. Default value is Ascending")
     private Direction orderBy;
 
-    public Direction getOrderBy() {
-        orderBy = ofNullable(orderBy).orElse(Direction.ASC);
-        return orderBy;
+    /**
+     * Get departure date
+     *
+     * @return departure date
+     */
+    public LocalDate getDepartureDate() {
+        // Setting default date to now() + 10 if not provided
+        return ofNullable(departureDate)
+            .orElseGet(() -> LocalDate.now().plusDays(10));
     }
 
+    /**
+     * Get soring order ASC/DSC
+     *
+     * @return soring order by
+     */
+    public Direction getOrderBy() {
+        return ofNullable(orderBy).orElse(Direction.ASC);
+    }
+
+    /**
+     * Get sorting field
+     *
+     * @return sorting field
+     */
     public SortFields getSortBy() {
-        sortBy = ofNullable(sortBy).orElse(SortFields.price);
-        return sortBy;
+        return ofNullable(sortBy).orElse(SortFields.price);
     }
 }

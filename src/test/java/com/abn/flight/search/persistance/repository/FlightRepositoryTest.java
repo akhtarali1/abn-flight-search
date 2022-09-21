@@ -2,19 +2,16 @@ package com.abn.flight.search.persistance.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Sort;
 
-import com.abn.flight.search.domain.SortFields;
+import com.abn.flight.search.model.SortFields;
 import com.abn.flight.search.persistance.entity.FlightEntity;
-import com.abn.flight.search.service.FlightSearchServiceImpl;
 
 @DataJpaTest
 class FlightRepositoryTest {
